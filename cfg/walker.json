@@ -1,0 +1,18 @@
+{
+  "container": "{{tags.container.tag}}",
+  "container_class": "{{tags.container.attr.class}}",
+  "container_id": "{{tags.container.attr.id}}",
+  "menu_class": "{{tags.menu.attr.class}}",
+  "menu_id": "{{tags.menu.attr.id}}",
+  "echo": false,
+  "fallback_cb": false,
+  "before": "{{before}}",
+  "after": "{{after}}",
+  "link_before": "{{link_before}}",
+  "link_after": "{{link_after}}",
+  "items_wrap": "{{items_wrap}}",
+  "item_spacing": "{{items_spacing}}",
+  "depth": "{{depth}}",
+  "walker": "\\flexwalker\\Flexwalker_Walker",
+  "theme_location": "{{location}}"
+}

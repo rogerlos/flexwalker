@@ -1,0 +1,54 @@
+[
+  {
+    "id": "splitbuttons",
+    "depth": 2,
+    "struct": "nav toggle toggleicon / / walker /",
+    "lvl": [
+      {
+        "check": {
+          "depth": 0,
+          "children": false,
+          "final": false
+        },
+        "struct": {
+          "lvlo": "",
+          "lvlc": "",
+          "open": "",
+          "close": "",
+          "item": "item",
+          "link": "a"
+        }
+      },
+      {
+        "check": {
+          "depth": 0,
+          "children": true,
+          "final": false
+        },
+        "struct": {
+          "lvlo": "dropdowntoggle / dropdownmenu",
+          "lvlc": "/",
+          "open": "dropdown",
+          "close": "/",
+          "item": "item",
+          "link": "a"
+        }
+      },
+      {
+        "check": {
+          "depth": 1,
+          "children": null,
+          "final": true
+        },
+        "struct": {
+          "lvlo": "",
+          "lvlc": "",
+          "open": "",
+          "close": "",
+          "item": "dropdownitem",
+          "link": "a"
+        }
+      }
+    ]
+  }
+]

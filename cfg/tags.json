@@ -1,0 +1,169 @@
+[
+  {
+    "id": "nav",
+    "tag": "nav",
+    "attr": {
+      "class": [
+        "navbar",
+        "navbar-toggleable"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "toggle",
+    "tag": "button",
+    "attr": {
+      "class": [
+        "navbar-toggler",
+        "navbar-toggler-right"
+      ],
+      "type": "button",
+      "data-toggle": "collapse",
+      "data-target": "#{{nid}}",
+      "aria-controls": "navbarCollapse",
+      "aria-expanded": false,
+      "aria-label": "Toggle Navigation"
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "toggleicon",
+    "tag": "span",
+    "attr": {
+      "class": [
+        "navbar-toggler-icon"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "container",
+    "tag": "div",
+    "attr": {
+      "class": [
+        "collapse",
+        "navbar-collapse",
+        "justify-content-end"
+      ],
+      "id": "{{nid}}"
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "menu",
+    "tag": "div",
+    "attr": {
+      "class": [
+        "navbar-nav"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "item",
+    "tag": "button",
+    "attr": {
+      "type": "button",
+      "class": [
+        "btn",
+        "nav-menu-button",
+        "nav-item",
+        "flexwalker-top-item"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "a",
+    "tag": "a",
+    "attr": {
+      "class": [
+        "nav-link"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "dropdown",
+    "tag": "div",
+    "attr": {
+      "class": [
+        "btn-group nav-item"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "dropdowntoggle",
+    "tag": "button",
+    "attr": {
+      "type": "button",
+      "class": [
+        "btn",
+        "dropdown-toggle",
+        "dropdown-toggle-split"
+      ],
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false",
+      "aria-label": "Toggle Menu"
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "dropdownmenu",
+    "tag": "div",
+    "attr": {
+      "class": [
+        "dropdown-menu",
+        "dropdown-menu-right"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "dropdownitem",
+    "tag": "div",
+    "attr": {
+      "class": [
+        "nav-item",
+        "flexwalker-dropdown-item"
+      ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  }
+]

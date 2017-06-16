@@ -1,0 +1,135 @@
+{
+  "use": true,
+  "js": [],
+  "debounce": 50,
+  "toggle": "navbar-toggleable",
+  "dom": [
+    {
+      "id": "sample",
+      "J_selector": ".sample-selector",
+      "J_parent": ".sample-selector-parent",
+      "triggers": [
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": true,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".move-here",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        },
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": false,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".sample-selector-parent",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        }
+      ]
+    }
+  ],
+  "env": {
+    "class": {
+      "body": "bs4-",
+      "hide": "hidden-",
+      "hidedown": "-down",
+      "hideup": "-up"
+    },
+    "breakpoints": {
+      "xs": [
+        "",
+        "sm",
+        ""
+      ],
+      "sm": [
+        "xs",
+        "md",
+        "-sm"
+      ],
+      "md": [
+        "sm",
+        "lg",
+        "-md"
+      ],
+      "lg": [
+        "md",
+        "xl",
+        "-lg"
+      ],
+      "xl": [
+        "lg",
+        "",
+        "-xl"
+      ]
+    }
+  },
+  "toowide": {
+      "use": false,
+      "J_measure": ".navbar-nav",
+      "J_against": ".navbar-collapse",
+      "J_addto": ".toggle-class-added-to-this-selector"
+    },
+  "menuscreen": {
+    "use": false,
+    "screen": "your-id-string",
+    "J_toggle": ".navbar-toggler",
+    "attr": "aria-expanded",
+    "value": "true"
+  },
+  "forceclick": {
+    "use": false,
+    "J_selector": ".nav-item",
+    "J_find": "a",
+    "attr": "href"
+  },
+  "resizehide": {
+    "use": false,
+    "items": [
+      {
+        "id": "navbar",
+        "J_selector": ".navbar",
+        "J_parent": ".your-navigation-parent"
+      }
+    ]
+  },
+  "togglerstateclass": {
+    "use": false,
+    "J_toggle": ".navbar-toggler",
+    "items": [
+      {
+        "id": "body",
+        "J_selector": "body",
+        "state": "visible",
+        "class": "menu-toggler-visible"
+      }
+    ]
+  },
+  "modify": [
+    {
+      "J_selector": ".your-parent-for-new-items",
+      "new": [
+        {
+          "id": "extras",
+          "J_selector": ".navbar-nav",
+          "append": true,
+          "tag": "div",
+          "attr": {
+            "class": "your-class-on-div"
+          }
+        }
+      ]
+    }
+  ]
+}
