@@ -85,13 +85,16 @@ class Flexwalker {
 	 */
 	public function menu( $args = [] ) {
 		
-		$append_numeric = isset( $args['append_numeric'] ) ? (bool) $args['append_numeric'] : true;
+		$append_numeric = apply_filters( FLXW . '_menu_numeric',
+			( isset( $args['append_numeric'] ) ? (bool) $args['append_numeric'] : true ) );
 		
 		// merge imported args with $this->cfg
-		$this->args = FU\parse_args_r( $args, $this->cfg, $append_numeric );
+		$this->args = apply_filters( FLXW . '_menu_args',
+			FU\parse_args_r( $args, $this->cfg, $append_numeric ) );
 		
 		// get matching template
-		$this->template = FU\return_array_by_id( $this->args['template'], $this->args['templates'] );
+		$this->template = apply_filters( FLXW . '_menu_template',
+			FU\return_array_by_id( $this->args['template'], $this->args['templates'] ) );
 		
 		// check required arguments
 		if ( ! $this->required() ) {
@@ -99,12 +102,13 @@ class Flexwalker {
 		}
 		
 		// random ID is generated for menu if one is not passed
-		$this->args['nid'] = empty( $this->args['nid'] ) ? FU\random_id() : $this->args['nid'];
+		$this->args['nid'] = apply_filters( FLXW . '_menu_id',
+			empty( $this->args['nid'] ) ? FU\random_id() : $this->args['nid'] );
 		
 		// add a filter to the nav walker allowing our configured tags and templates in
 		$this->walker_filter();
 		
-		return $this->navbar( $this->template['struct'] );
+		return $this->navbar( $this->template['struct'], $this->template['id'] );
 	}
 	
 	/**
@@ -163,16 +167,17 @@ class Flexwalker {
 	 *
 	 * @since 1.0
 	 *
-	 * @param $structure
+	 * @param string $structure
+	 * @param string $id
 	 *
 	 * @return string
 	 */
-	private function navbar( $structure ) {
+	private function navbar( $structure, $id ) {
 		
 		$ret  = '';
-		$tags = explode( ' ', $structure );
+		$tags = apply_filters( FLXW . '_navbar_tags', explode( ' ', $structure ), $id );
 		
-		foreach ( $tags as $tag ) {
+		foreach ( $tags as $tk => $tag ) {
 			
 			if ( $tag == 'walker' ) {
 				
@@ -181,20 +186,20 @@ class Flexwalker {
 			} else if ( $tag == '/' ) {
 				
 				$close = array_pop( $this->open_tags );
-				$arr   = FU\return_array_by_id( $close, $this->args['tags'] );
 				
-				$ret .= FU\close_tag( $arr );
+				$arr = apply_filters( FLXW . '_navbar_close_tag', FU\return_array_by_id( $close, $this->args['tags'] ), $tk, $id );
+				$ret .= apply_filters( FLXW . '_navbar_close_html', FU\close_tag( $arr ), $tk, $id );
 				
 			} else {
 				
 				$this->open_tags[] = $tag;
-				$arr               = FU\return_array_by_id( $tag, $this->args['tags'] );
 				
-				$ret .= FU\open_tag( $arr );
+				$arr = apply_filters( FLXW . '_navbar_open_tag', FU\return_array_by_id( $tag, $this->args['tags'] ), $tk, $id );
+				$ret .= apply_filters( FLXW . '_navbar_open_html', FU\open_tag( $arr ), $tk, $id );
 			}
 		}
 		
-		return FU\tokens( $ret, $this->args );
+		return apply_filters( FLXW . '_navbar_html', FU\tokens( $ret, $this->args ), $id );
 	}
 	
 	/**
@@ -211,7 +216,7 @@ class Flexwalker {
 		$walk_args['walker']     = new $walk_args['walker']();
 		$walk_args['items_wrap'] = $this->wrapper();
 		
-		return wp_nav_menu( apply_filters( FLXW . '_wpnavmenu_arguments', $walk_args ) );
+		return wp_nav_menu( apply_filters( FLXW . '_get_walker', $walk_args ) );
 	}
 	
 	/**
@@ -223,9 +228,9 @@ class Flexwalker {
 	 */
 	private function wrapper() {
 		
-		$t = FU\dots( 'tags.menu.tag', $this->args );
+		$t = apply_filters( FLXW . '_wrapper_tag', FU\dots( 'tags.menu.tag', $this->args ) );
 		
-		return '<' . $t . ' id="%1$s" class="%2$s">%3$s</' . $t . '>';
+		return apply_filters( FLXW . '_wrapper', '<' . $t . ' id="%1$s" class="%2$s">%3$s</' . $t . '>' );
 	}
 	
 	/**
@@ -262,7 +267,7 @@ class Flexwalker {
 				$args['nid']      = $this->args['nid'];
 			}
 			
-			return $args;
+			return apply_filters( FLXW . '_walker_filter', $args );
 		} );
 	}
 }

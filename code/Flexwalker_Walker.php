@@ -152,28 +152,28 @@ class Flexwalker_Walker extends \Walker_Nav_Menu {
 			return $ret;
 		}
 		
-		$A = apply_filters( 'flexwalker_walker_tags', $A );
+		$A = apply_filters( 'flexwalker_walker_build_tags_arguments', $A );
 		
 		$this->open_tags[ $A['topkey'] ] = empty( $this->open_tags[ $A['topkey'] ] ) ?
 			[] : $this->open_tags[ $A['topkey'] ];
 		
-		foreach ( $A['tags'] as $tag ) {
+		foreach ( $A['tags'] as $tk => $tag ) {
 			
 			if ( $tag == '/' ) {
 				
 				$close = array_pop( $this->open_tags[ $A['topkey'] ] );
-				$arr   = FU\return_array_by_id( $close, $args->flextags );
-				$ret   .= FU\close_tag( $arr );
+				$arr   = apply_filters( 'flexwalker_walker_close_tag', FU\return_array_by_id( $close, $args->flextags ), $tk, $A['topkey'] );
+				$ret   .= apply_filters( 'flexwalker_walker_close_html', FU\close_tag( $arr ), $tk, $A['topkey'] );
 				
 			} else {
 				
 				$this->open_tags[ $A['topkey'] ][] = $tag;
-				$arr = FU\return_array_by_id( $tag, $args->flextags );
-				$ret .= FU\open_tag( $arr );
+				$arr = apply_filters( 'flexwalker_walker_open_tag', FU\return_array_by_id( $tag, $args->flextags ), $tk, $A['topkey'] );
+				$ret .= apply_filters( 'flexwalker_walker_open_html', FU\open_tag( $arr ), $tk, $A['topkey'] );
 			}
 		}
 		
-		return $ret;
+		return apply_filters( 'flexwalker_walker_build_tags_html', $ret, $A );
 	}
 	
 	/**
