@@ -4,8 +4,8 @@ WordPress plugin which allows flexibly-formatted menus via templates. For develo
 
 ## Description
 
-This plugin extends the WP nav walker with a version allowing for fairly complex menu structures. Wanting to use
-"split buttons" within a Bootstrap 4 `navbar` component and use a WordPress menu was the prompt for flexwalker, but it's
+This plugin extends the WordPress nav walker with a version allowing for fairly complex menu structures. Wanting to use
+"split buttons" within a Bootstrap 4 `navbar` component and use a WordPress menu was the prompt for writing Flexwalker, but it's
 coded in a way as to be useful even if you're not using Bootstrap 4.
 
 Loading the JavaScript file is optional. It contains some DOM manipulation options to help with forcing clicks, adding
