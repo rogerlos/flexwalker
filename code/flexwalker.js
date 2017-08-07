@@ -87,20 +87,27 @@ jQuery( document ).ready( function ( $ ) {
         resizing = false,
         BS = 'XX';
 
+    /**
+     * Fired on ready.
+     *
+     * @since 1.1 Removed extra listener and call
+     */
+
     modify_menu();
 
-    window.addEventListener( 'resize', _resize_hide );
     window.addEventListener( 'resize', sizer );
 
-    resized();
-    force_clicks();
     dropdown_screen();
+    force_clicks();
+    resized();
 
     /**
      * Modifies the configured menu
      */
     function modify_menu() {
+
         $.each( FLEX.modify, function ( i, v ) {
+
             $.each( v.new, function ( ii, vv ) {
 
                 var $new = $( '<' + vv.tag + '>', vv.attr ),
@@ -113,29 +120,21 @@ jQuery( document ).ready( function ( $ ) {
 
     /**
      * Adjust DOM on resize
+     *
+     * @since 1.1 Changed to a promise model to ensure methods are checked sequentially
      */
     function resized() {
 
-        // set status var to prevent additional visibility calls if screen is currently being resized
         resizing = true;
 
-        // get the bootstrap size
-        _size();
+        _resize_hide()
+            .then( _size )
+            .then( _too_wide )
+            .then( _add_class_on_toggle )
+            .then( _resize_dom )
+            .then( _resize_hide( false ) );
 
-        // try to set the toggle point, if configured to do so, allows resizing to stay true until complete
-        if ( _too_wide() && _add_class_on_toggle() ) {
-
-            // modify the DOM as configured
-            $.each( FLEX.dom, function ( i, v ) {
-                _dom( v );
-            } );
-
-            // set status, we're done
-            resizing = false;
-
-            // make elements visible again
-            _resize_hide( false );
-        }
+        resizing = false;
     }
 
     /**
@@ -179,8 +178,12 @@ jQuery( document ).ready( function ( $ ) {
 
     /**
      * Adds class to parent whether top level menu is hiden behind toggle or not
+     *
+     * @since 1.1 returns promise
      */
     function _add_class_on_toggle() {
+
+        var d= new $.Deferred;
 
         if ( FLEX.togglerstateclass.use ) {
 
@@ -197,7 +200,8 @@ jQuery( document ).ready( function ( $ ) {
             } );
         }
 
-        return true;
+        d.resolve();
+        return d.promise();
     }
 
     /**
@@ -246,15 +250,21 @@ jQuery( document ).ready( function ( $ ) {
 
     /**
      * Gets the current breakpoint and sets it as a tag on the body
+     *
+     * @since 1.1 Returns promise
      */
     function _size() {
 
-        var bp = _environment();
+        var bp = _environment(),
+            d = new $.Deferred();
 
         if ( bp !== BS ) {
             $( 'body' ).removeClass( FLEX.env.class.body + BS ).addClass( FLEX.env.class.body + bp );
             BS = bp;
         }
+
+        d.resolve();
+        return d.promise();
     }
 
     /**
@@ -319,13 +329,34 @@ jQuery( document ).ready( function ( $ ) {
     }
 
     /**
+     * Resizes items in dom
+     *
+     * @since 1.1 Broken out from resize()
+     */
+    function _resize_dom() {
+
+        var d = new $.Deferred();
+
+        $.each( FLEX.dom, function ( i, v ) {
+            _dom( v );
+        } );
+
+        d.resolve();
+        return d.promise();
+    }
+
+    /**
      * Makes configured DOM elements invisible via CSS visibility.
      *
+     * @since 1.1 Returns promise
+     * @since 1.1 Hides the screen behind menu on resize
      * @param [hider]  true to hide, false to show
      */
     function _resize_hide( hider ) {
 
-        var vis = hider !== false ? 'hidden' : 'visible';
+        var vis = hider !== false ? 'hidden' : 'visible',
+            $mscrn = $( '.' + FLEX.menuscreen.screen ),
+            d = new $.Deferred();
 
         if ( FLEX.resizehide.use && ! resizing ) {
 
@@ -333,22 +364,35 @@ jQuery( document ).ready( function ( $ ) {
                 $( v.J_parent ).find( v.J_selector ).css( 'visibility', vis );
             } );
         }
+
+        if ( $mscrn.length ) {
+            $( FLEX.toowide.J_measure ).is( ':visible' ) && $( FLEX.togglerstateclass.J_toggle ).is( ':visible' ) ?
+                $mscrn.addClass( 'active' ) : $mscrn.removeClass( 'active' );
+        }
+
+        d.resolve();
+        return d.promise();
     }
 
     /**
      * Toggles the menu if the menu is wider than the container.
      *
+     * @since 1.1  Inversed check of toggle class; should not overwrite smaller toggle point with larger
+     * @since 1.1  Returns promise, allowing sequential application
      * @private
      */
     function _too_wide() {
 
-        var $add, cls = '';
+        var $add,
+            cls = '',
+            d = new $.Deferred();
 
         if ( FLEX.toowide.use ) {
 
-            if ( $( FLEX.toowide.J_measure ).outerWidth() > $( FLEX.toowide.J_against ).outerWidth() ) {
+            $add = $( FLEX.toowide.J_addto );
 
-                $add = $( FLEX.toowide.J_addto );
+            if ( $( FLEX.toowide.J_measure ).outerWidth() > $( FLEX.toowide.J_against ).outerWidth() &&
+                ! $( 'body' ).hasClass( FLEX.togglerstateclass.items[0].class ) ) {
 
                 // remove any other toggle classes
                 $.each( FLEX.env.breakpoints, function(i,v) {
@@ -356,10 +400,18 @@ jQuery( document ).ready( function ( $ ) {
                 });
 
                 $add.removeClass( cls ).addClass( FLEX.toggle + '-' + BS );
+
+                // we have to check if $add is a member of FLEX.dom
+                $.each( FLEX.dom, function ( i, v ) {
+                    if ( $( v.J_selector ).is( $add ) ) {
+                        initcls[ v.id ] = $add.attr( 'class' );
+                    }
+                });
             }
         }
 
-        return true;
+        d.resolve();
+        return d.promise();
     }
 
 } );

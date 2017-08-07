@@ -46,6 +46,10 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ## Revisions
 
+### 1.1
+
+* Changes to try and ensure greater reliability to menu detection
+
 ### 1.0
 
 * Initial release. Not thoroughly tested across platforms or browsers yet!

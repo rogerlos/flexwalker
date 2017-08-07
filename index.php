@@ -24,7 +24,7 @@ $req  = [ 'php' => 5.4, 'wp' => 4.0, ];
 $core = [
 	'path'    => plugin_dir_path( __FILE__ ),
 	'url'     => plugin_dir_url( __FILE__ ),
-	'version' => '1.0',
+	'version' => '1.1',
 	'json'    => [ 'tags', 'templates', 'walker', 'display' ],
 ];
 
