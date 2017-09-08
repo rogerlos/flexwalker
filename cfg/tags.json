@@ -5,8 +5,20 @@
     "attr": {
       "class": [
         "navbar",
-        "navbar-toggleable"
+        "navbar-expand",
+        "bg-light"
       ]
+    },
+    "content": {
+      "open": "",
+      "close": ""
+    }
+  },
+  {
+    "id": "brand",
+    "tag": "a",
+    "attr": {
+      "href": "/"
     },
     "content": {
       "open": "",
@@ -18,13 +30,12 @@
     "tag": "button",
     "attr": {
       "class": [
-        "navbar-toggler",
-        "navbar-toggler-right"
+        "navbar-toggler"
       ],
       "type": "button",
       "data-toggle": "collapse",
       "data-target": "#{{nid}}",
-      "aria-controls": "navbarCollapse",
+      "aria-controls": "{{nid}}",
       "aria-expanded": false,
       "aria-label": "Toggle Navigation"
     },

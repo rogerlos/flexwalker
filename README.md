@@ -46,6 +46,10 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ## Revisions
 
+### 1.2
+
+* Bootstrap 4 beta squished what was being used to detect things, changes to reflect that.
+
 ### 1.1
 
 * Changes to try and ensure greater reliability to menu detection

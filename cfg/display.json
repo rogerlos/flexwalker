@@ -2,12 +2,12 @@
   "use": true,
   "js": [],
   "debounce": 50,
-  "toggle": "navbar-toggleable",
+  "toggle": "navbar-expand",
   "dom": [
     {
-      "id": "sample",
-      "J_selector": ".sample-selector",
-      "J_parent": ".sample-selector-parent",
+      "id": "socialsites",
+      "J_selector": ".peconic-social-sites",
+      "J_parent": ".pec-nav-social-col-head",
       "triggers": [
         {
           "checker": {
@@ -15,7 +15,7 @@
             "has": true,
             "class": "menu-toggler-visible"
           },
-          "J_parent": ".move-here",
+          "J_parent": ".pec-nav-menu-extras",
           "class": {
             "add": "",
             "remove": ""
@@ -29,7 +29,147 @@
             "has": false,
             "class": "menu-toggler-visible"
           },
-          "J_parent": ".sample-selector-parent",
+          "J_parent": ".pec-nav-social-col-head",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "J_selector": ".pec-search-cont",
+      "J_parent": ".pec-head-bar-right",
+      "triggers": [
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": true,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-header-navbar",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": false
+        },
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": false,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-head-bar-right",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        }
+      ]
+    },
+    {
+      "id": "navbar",
+      "J_selector": ".navbar",
+      "J_parent": ".pec-nav-nav-col",
+      "triggers": [
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": true,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-nav-nav-col",
+          "class": {
+            "add": "col",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        },
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": false,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-nav-nav-col",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        }
+      ]
+    },
+    {
+      "id": "navbarcontainer",
+      "J_selector": ".pec-nav-nav-col",
+      "J_parent": ".pec-nav-nav",
+      "triggers": [
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": true,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-nav-nav",
+          "class": {
+            "add": "row",
+            "remove": "col"
+          },
+          "show": true,
+          "append": true
+        },
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": false,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-nav-nav",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": true
+        }
+      ]
+    },
+    {
+      "id": "toplogo",
+      "J_selector": ".navbar-brand",
+      "J_parent": ".pec-logo-header",
+      "triggers": [
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": true,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".navbar",
+          "class": {
+            "add": "",
+            "remove": ""
+          },
+          "show": true,
+          "append": false
+        },
+        {
+          "checker": {
+            "J_selector": "body",
+            "has": false,
+            "class": "menu-toggler-visible"
+          },
+          "J_parent": ".pec-logo-header",
           "class": {
             "add": "",
             "remove": ""
@@ -43,69 +183,69 @@
   "env": {
     "class": {
       "body": "bs4-",
-      "hide": "hidden-",
-      "hidedown": "-down",
-      "hideup": "-up"
+      "hide": "d-",
+      "hidedown": "-flex",
+      "hideup": "-flex"
     },
     "breakpoints": {
       "xs": [
         "",
         "sm",
-        ""
+        "-sm"
       ],
       "sm": [
         "xs",
         "md",
-        "-sm"
+        "-md"
       ],
       "md": [
         "sm",
         "lg",
-        "-md"
+        "-lg"
       ],
       "lg": [
         "md",
         "xl",
-        "-lg"
+        "-xl"
       ],
       "xl": [
         "lg",
         "",
-        "-xl"
+        ""
       ]
     }
   },
   "toowide": {
-      "use": false,
+      "use": true,
       "J_measure": ".navbar-nav",
-      "J_against": ".navbar-collapse",
-      "J_addto": ".toggle-class-added-to-this-selector"
+      "J_against": ".navbar-expand",
+      "J_addto": ".navbar-expand"
     },
   "menuscreen": {
-    "use": false,
-    "screen": "your-id-string",
+    "use": true,
+    "screen": "pec-content-overlay",
     "J_toggle": ".navbar-toggler",
     "attr": "aria-expanded",
     "value": "true"
   },
   "forceclick": {
-    "use": false,
+    "use": true,
     "J_selector": ".nav-item",
     "J_find": "a",
     "attr": "href"
   },
   "resizehide": {
-    "use": false,
+    "use": true,
     "items": [
       {
         "id": "navbar",
-        "J_selector": ".navbar",
-        "J_parent": ".your-navigation-parent"
+        "J_selector": ".pec-nav-nav-col",
+        "J_parent": ".pec-nav-nav"
       }
     ]
   },
   "togglerstateclass": {
-    "use": false,
+    "use": true,
     "J_toggle": ".navbar-toggler",
     "items": [
       {
@@ -118,7 +258,7 @@
   },
   "modify": [
     {
-      "J_selector": ".your-parent-for-new-items",
+      "J_selector": ".pec-nav-nav-col",
       "new": [
         {
           "id": "extras",
@@ -126,7 +266,7 @@
           "append": true,
           "tag": "div",
           "attr": {
-            "class": "your-class-on-div"
+            "class": "pec-nav-menu-extras"
           }
         }
       ]

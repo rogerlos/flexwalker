@@ -85,6 +85,7 @@ jQuery( document ).ready( function ( $ ) {
         initcls = {},
         sizer = _debounce( resized, FLEX.debounce ),
         resizing = false,
+        fitted = {},
         BS = 'XX';
 
     /**
@@ -92,6 +93,8 @@ jQuery( document ).ready( function ( $ ) {
      *
      * @since 1.1 Removed extra listener and call
      */
+
+    console.log( 'FLEXWALKER' );
 
     modify_menu();
 
@@ -269,6 +272,7 @@ jQuery( document ).ready( function ( $ ) {
 
     /**
      * Finds the environment, adds tag to body
+     *
      * @returns {string}
      */
     function _environment() {
@@ -278,18 +282,20 @@ jQuery( document ).ready( function ( $ ) {
 
         $el.appendTo( $( 'body' ) );
 
-        $.each( FLEX.env.breakpoints, function ( i, v ) {
+        $.each( FLEX.env.breakpoints, function ( i ) {
 
-            if ( v[ 0 ] !== '' ) $el.addClass( FLEX.env.class.hide + v[ 0 ] + FLEX.env.class.hidedown );
-            if ( v[ 1 ] !== '' ) $el.addClass( FLEX.env.class.hide + v[ 1 ] + FLEX.env.class.hideup );
+            if ( i !== 'xs' ) {
+                $el.addClass( 'd-none' );
+            }
 
-            bp = i;
+            $el.addClass(  FLEX.env.class.hide + i  + FLEX.env.class.hideup );
 
             if ( $el.is( ':visible' ) ) {
-                $el.remove();
-                return false;
-            } else {
+                bp = i;
                 $el.attr( 'class', '' );
+            } else {
+                $el.remove();
+                //return;
             }
         } );
 
@@ -384,29 +390,47 @@ jQuery( document ).ready( function ( $ ) {
     function _too_wide() {
 
         var $add,
+            $against,
+            $measure,
             cls = '',
-            d = new $.Deferred();
+            d = new $.Deferred(),
+            flag = false;
 
         if ( FLEX.toowide.use ) {
 
             $add = $( FLEX.toowide.J_addto );
+            $measure = $( FLEX.toowide.J_measure );
+            $against = $( FLEX.toowide.J_against );
 
-            if ( $( FLEX.toowide.J_measure ).outerWidth() > $( FLEX.toowide.J_against ).outerWidth() &&
-                ! $( 'body' ).hasClass( FLEX.togglerstateclass.items[0].class ) ) {
+            if ( $measure.outerWidth() > $against.outerWidth() && typeof( fitted[ BS ] ) === 'undefined' ) {
+
+                fitted[ BS ] = 1;
 
                 // remove any other toggle classes
                 $.each( FLEX.env.breakpoints, function(i,v) {
-                    if ( i !== BS ) cls += FLEX.toggle + v[2] + ' ';
-                });
 
-                $add.removeClass( cls ).addClass( FLEX.toggle + '-' + BS );
-
-                // we have to check if $add is a member of FLEX.dom
-                $.each( FLEX.dom, function ( i, v ) {
-                    if ( $( v.J_selector ).is( $add ) ) {
-                        initcls[ v.id ] = $add.attr( 'class' );
+                    if ( i === BS ) {
+                        flag = true;
+                    }
+                    else if ( v[2] !== '' && $add.hasClass( FLEX.toggle + v[2] ) && flag ) {
+                        flag = false;
+                    }
+                    else {
+                        cls += FLEX.toggle + v[2] + ' ';
                     }
                 });
+
+                if ( flag ) {
+
+                    $add.removeClass( cls ).addClass( FLEX.toggle + FLEX.env.breakpoints[ BS ][2] );
+
+                    // we have to check if $add is a member of FLEX.dom
+                    $.each( FLEX.dom, function ( i, v ) {
+                        if ( $( v.J_selector ).is( $add ) ) {
+                            initcls[ v.id ] = $add.attr( 'class' );
+                        }
+                    });
+                }
             }
         }
 

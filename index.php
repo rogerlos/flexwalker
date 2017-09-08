@@ -24,7 +24,7 @@ $req  = [ 'php' => 5.4, 'wp' => 4.0, ];
 $core = [
 	'path'    => plugin_dir_path( __FILE__ ),
 	'url'     => plugin_dir_url( __FILE__ ),
-	'version' => '1.1',
+	'version' => '1.2.0',
 	'json'    => [ 'tags', 'templates', 'walker', 'display' ],
 ];
 
@@ -78,7 +78,7 @@ function flexwalker_launch( $req, $core ) {
 	if ( floatval( phpversion() ) >= $req['php'] && floatval( get_bloginfo( 'version' ) ) >=$req['wp'] ) {
 		
 		$flex = new \flexwalker\Flexwalker( $core );
-		$flex->cfg( '', flexwalker_config( $core['json'] ) );
+		$flex->cfg( '', flexwalker_config( $core['json'], $core['path'] ) );
 		$flex->js();
 		return $flex;
 	}
@@ -92,10 +92,10 @@ function flexwalker_launch( $req, $core ) {
  * @since 1.0
  *
  * @param $files
- *
+ * @param $path
  * @return array
  */
-function flexwalker_config( $files ) {
+function flexwalker_config( $files, $path ) {
 	
 	$themepath = get_stylesheet_directory() . '/' . FLXW;
 	$cfg = [];
@@ -106,7 +106,7 @@ function flexwalker_config( $files ) {
 		$theme = \flexwalker\functions\read_json_cfg( $themepath . $file );
 		
 		$cfg[ $f ] = ! empty( $theme ) ?
-			$theme : \flexwalker\functions\read_json_cfg( $this->core['path'] . $file );
+			$theme : \flexwalker\functions\read_json_cfg( $path . '/cfg' . $file );
 	}
 	
 	return $cfg;
