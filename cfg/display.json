@@ -5,9 +5,9 @@
   "toggle": "navbar-expand",
   "dom": [
     {
-      "id": "socialsites",
-      "J_selector": ".peconic-social-sites",
-      "J_parent": ".pec-nav-social-col-head",
+      "id": "example",
+      "J_selector": ".thing-to-move",
+      "J_parent": ".current-parent",
       "triggers": [
         {
           "checker": {
@@ -15,7 +15,7 @@
             "has": true,
             "class": "menu-toggler-visible"
           },
-          "J_parent": ".pec-nav-menu-extras",
+          "J_parent": ".new-parent",
           "class": {
             "add": "",
             "remove": ""
@@ -29,147 +29,7 @@
             "has": false,
             "class": "menu-toggler-visible"
           },
-          "J_parent": ".pec-nav-social-col-head",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        }
-      ]
-    },
-    {
-      "id": "search",
-      "J_selector": ".pec-search-cont",
-      "J_parent": ".pec-head-bar-right",
-      "triggers": [
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": true,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-header-navbar",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": false
-        },
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": false,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-head-bar-right",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        }
-      ]
-    },
-    {
-      "id": "navbar",
-      "J_selector": ".navbar",
-      "J_parent": ".pec-nav-nav-col",
-      "triggers": [
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": true,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-nav-nav-col",
-          "class": {
-            "add": "col",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        },
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": false,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-nav-nav-col",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        }
-      ]
-    },
-    {
-      "id": "navbarcontainer",
-      "J_selector": ".pec-nav-nav-col",
-      "J_parent": ".pec-nav-nav",
-      "triggers": [
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": true,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-nav-nav",
-          "class": {
-            "add": "row",
-            "remove": "col"
-          },
-          "show": true,
-          "append": true
-        },
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": false,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-nav-nav",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        }
-      ]
-    },
-    {
-      "id": "toplogo",
-      "J_selector": ".navbar-brand",
-      "J_parent": ".pec-logo-header",
-      "triggers": [
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": true,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".navbar",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": false
-        },
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": false,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".pec-logo-header",
+          "J_parent": ".current-parent",
           "class": {
             "add": "",
             "remove": ""
@@ -223,7 +83,7 @@
     },
   "menuscreen": {
     "use": true,
-    "screen": "pec-content-overlay",
+    "screen": "your-overlay-div",
     "J_toggle": ".navbar-toggler",
     "attr": "aria-expanded",
     "value": "true"
@@ -238,9 +98,9 @@
     "use": true,
     "items": [
       {
-        "id": "navbar",
-        "J_selector": ".pec-nav-nav-col",
-        "J_parent": ".pec-nav-nav"
+        "id": "example",
+        "J_selector": ".hide-this",
+        "J_parent": ".hide-this-parent"
       }
     ]
   },
@@ -258,15 +118,15 @@
   },
   "modify": [
     {
-      "J_selector": ".pec-nav-nav-col",
+      "J_selector": ".example-div",
       "new": [
         {
-          "id": "extras",
-          "J_selector": ".navbar-nav",
+          "id": "new-div",
+          "J_selector": ".put-new-div-here",
           "append": true,
           "tag": "div",
           "attr": {
-            "class": "pec-nav-menu-extras"
+            "class": "your-new-class"
           }
         }
       ]
