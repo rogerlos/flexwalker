@@ -48,38 +48,25 @@
       "hideup": "-flex"
     },
     "breakpoints": {
-      "xs": [
-        "",
-        "sm",
-        "-sm"
-      ],
-      "sm": [
-        "xs",
-        "md",
-        "-md"
-      ],
-      "md": [
-        "sm",
-        "lg",
-        "-lg"
-      ],
-      "lg": [
-        "md",
-        "xl",
-        "-xl"
-      ],
-      "xl": [
-        "lg",
-        "",
-        ""
-      ]
+      "xs": "sm",
+      "sm": "md",
+      "md": "lg",
+      "lg": "xl",
+      "xl": ""
     }
   },
   "toowide": {
       "use": true,
       "J_measure": ".navbar-nav",
-      "J_against": ".navbar-expand",
-      "J_addto": ".navbar-expand"
+      "J_against": ".navbar",
+      "J_addto": ".navbar",
+      "maxwidths": {
+        "xs": 0,
+        "sm": 0,
+        "md": 0,
+        "lg": 0,
+        "xl": 0
+      }
     },
   "menuscreen": {
     "use": true,

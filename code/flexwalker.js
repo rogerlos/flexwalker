@@ -15,6 +15,7 @@
  * @property {string}              FLEX.toowide.J_measure
  * @property {string}              FLEX.toowide.J_against
  * @property {string}              FLEX.toowide.J_addto
+ * @property {object}              FLEX.toowide.maxwidths
  * @property {object}              FLEX.forceclick
  * @property {bool}                FLEX.forceclick.use
  * @property {string}              FLEX.forceclick.J_selector
@@ -83,6 +84,7 @@ jQuery( document ).ready( function ( $ ) {
 
     var $document = $( document ),
         initcls = {},
+        hider = resize_start,
         sizer = _debounce( resized, FLEX.debounce ),
         resizing = false,
         fitted = {},
@@ -96,10 +98,10 @@ jQuery( document ).ready( function ( $ ) {
 
     console.log( 'FLEXWALKER' );
 
-    modify_menu();
-
+    window.addEventListener( 'resize', hider );
     window.addEventListener( 'resize', sizer );
 
+    modify_menu();
     dropdown_screen();
     force_clicks();
     resized();
@@ -122,16 +124,28 @@ jQuery( document ).ready( function ( $ ) {
     }
 
     /**
+     * Fires without delay at start of  resizing event.
+     *
+     * @since 1.2
+     */
+    function resize_start() {
+
+        if ( ! resizing ) {
+            _resize_hide();
+        }
+
+        resizing = true;
+    }
+
+    /**
      * Adjust DOM on resize
      *
+     * @since 1.2 Only fires _resize_hide at end
      * @since 1.1 Changed to a promise model to ensure methods are checked sequentially
      */
     function resized() {
 
-        resizing = true;
-
-        _resize_hide()
-            .then( _size )
+        _size()
             .then( _too_wide )
             .then( _add_class_on_toggle )
             .then( _resize_dom )
@@ -364,7 +378,7 @@ jQuery( document ).ready( function ( $ ) {
             $mscrn = $( '.' + FLEX.menuscreen.screen ),
             d = new $.Deferred();
 
-        if ( FLEX.resizehide.use && ! resizing ) {
+        if ( FLEX.resizehide.use ) {
 
             $.each( FLEX.resizehide.items, function ( i, v ) {
                 $( v.J_parent ).find( v.J_selector ).css( 'visibility', vis );
@@ -383,6 +397,7 @@ jQuery( document ).ready( function ( $ ) {
     /**
      * Toggles the menu if the menu is wider than the container.
      *
+     * @since 1.2  Bootstrap4 beta classes; checks allow optional max-width
      * @since 1.1  Inversed check of toggle class; should not overwrite smaller toggle point with larger
      * @since 1.1  Returns promise, allowing sequential application
      * @private
@@ -392,7 +407,7 @@ jQuery( document ).ready( function ( $ ) {
         var $add,
             $against,
             $measure,
-            cls = '',
+            max = '',
             d = new $.Deferred(),
             flag = false;
 
@@ -402,27 +417,43 @@ jQuery( document ).ready( function ( $ ) {
             $measure = $( FLEX.toowide.J_measure );
             $against = $( FLEX.toowide.J_against );
 
+            if ( FLEX.toowide.maxwidths[ BS ] !== 0 ) {
+
+                max = typeof FLEX.toowide.maxwidths[ BS ] === 'number' ?
+                    FLEX.toowide.maxwidths[ BS ] + 'px' : FLEX.toowide.maxwidths[ BS ];
+
+                $against.css( 'max-width', max );
+            }
+
             if ( $measure.outerWidth() > $against.outerWidth() && typeof( fitted[ BS ] ) === 'undefined' ) {
 
-                fitted[ BS ] = 1;
-
-                // remove any other toggle classes
                 $.each( FLEX.env.breakpoints, function(i,v) {
 
-                    if ( i === BS ) {
-                        flag = true;
+                    if ( i !== BS && ! flag && typeof( fitted[ i ] ) === 'undefined' ) {
+
+                        fitted[ i ] = 1;
+
+                    } else {
+
+                        if ( ! flag ) {
+                            fitted[ i ] = 1;
+                        }
+
+                        flag = i === BS ? v : flag;
+
+                        if ( i === BS && i !== 'xl' ) {
+                            $add.removeClass( FLEX.toggle + ' ' + FLEX.toggle + '-' + i )
+                                .addClass( FLEX.toggle + '-' + v );
+                        }
                     }
-                    else if ( v[2] !== '' && $add.hasClass( FLEX.toggle + v[2] ) && flag ) {
-                        flag = false;
+
+                    if ( i !== BS && flag !== i ) {
+                        $add.removeClass( FLEX.toggle + '-' + i );
                     }
-                    else {
-                        cls += FLEX.toggle + v[2] + ' ';
-                    }
+
                 });
 
                 if ( flag ) {
-
-                    $add.removeClass( cls ).addClass( FLEX.toggle + FLEX.env.breakpoints[ BS ][2] );
 
                     // we have to check if $add is a member of FLEX.dom
                     $.each( FLEX.dom, function ( i, v ) {
@@ -431,6 +462,10 @@ jQuery( document ).ready( function ( $ ) {
                         }
                     });
                 }
+            }
+
+            if ( FLEX.toowide.maxwidths[ BS ] !== 0 ) {
+                $against.css( 'max-width', '' );
             }
         }
 
