@@ -103,20 +103,23 @@
       }
     ]
   },
-  "modify": [
-    {
-      "J_selector": ".example-div",
-      "new": [
-        {
-          "id": "new-div",
-          "J_selector": ".put-new-div-here",
-          "append": true,
-          "tag": "div",
-          "attr": {
-            "class": "your-new-class"
+  "modifymenu": {
+    "use": true,
+    "items": [
+      {
+        "J_selector": ".example-div",
+        "new": [
+          {
+            "id": "new-div",
+            "J_selector": ".put-new-div-here",
+            "append": true,
+            "tag": "div",
+            "attr": {
+              "class": "your-new-class"
+            }
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }

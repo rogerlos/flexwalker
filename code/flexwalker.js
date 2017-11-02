@@ -34,7 +34,7 @@
  * @property {object}              FLEX.resizehide
  * @property {bool}                FLEX.resizehide.use
  * @property {Array.BS4resize}     FLEX.resizehide.items
- * @property {Array.BS4mod}        FLEX.modify
+ * @property {Array.BS4mod}        FLEX.modifymenu
  *
  * @typedef  {object}              BS4domsize
  * @property {string}              BS4domsize.id
@@ -55,8 +55,12 @@
  * @property {bool}                BS4domtrigger.append
  *
  * @typedef  {object}              BS4mod
- * @property {string}              BS4mod.J_selector
- * @property {Array.BS4moditem}    BS4mod.new
+ * @property {bool}                BS4mod.use
+ * @property {Array.BS4moditems}   BS4mod.items
+ *
+ * @typedef  {object}              BS4moditems
+ * @property {string}              BS4moditems.J_selector
+ * @property {Array.BS4moditem}    BS4moditems.new
  *
  * @typedef  {object}              BS4moditem
  * @property {string}              BS4moditem.id
@@ -111,16 +115,19 @@ jQuery( document ).ready( function ( $ ) {
      */
     function modify_menu() {
 
-        $.each( FLEX.modify, function ( i, v ) {
+        if ( FLEX.modifymenu.use ) {
 
-            $.each( v.new, function ( ii, vv ) {
+            $.each( FLEX.modifymenu.items, function ( i, v ) {
 
-                var $new = $( '<' + vv.tag + '>', vv.attr ),
-                    $sel = vv.J_selector !== '' ? $( v.J_selector ).find( vv.J_selector ) : $( v.J_selector );
+                $.each( v.new, function ( ii, vv ) {
 
-                vv.append ? $sel.append( $new ) : $sel.prepend( $new );
+                    var $new = $( '<' + vv.tag + '>', vv.attr ),
+                        $sel = vv.J_selector !== '' ? $( v.J_selector ).find( vv.J_selector ) : $( v.J_selector );
+
+                    vv.append ? $sel.append( $new ) : $sel.prepend( $new );
+                } );
             } );
-        } );
+        }
     }
 
     /**

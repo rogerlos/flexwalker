@@ -46,6 +46,10 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ## Revisions
 
+### 1.3
+
+* Modified the display JSON to allow 'use' flag, changed 'modify' to 'modifymenu'
+
 ### 1.2
 
 * Bootstrap 4 beta squished what was being used to detect things, changes to reflect that.
