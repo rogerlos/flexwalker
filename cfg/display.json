@@ -3,43 +3,6 @@
   "js": [],
   "debounce": 50,
   "toggle": "navbar-expand",
-  "dom": [
-    {
-      "id": "example",
-      "J_selector": ".thing-to-move",
-      "J_parent": ".current-parent",
-      "triggers": [
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": true,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".new-parent",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        },
-        {
-          "checker": {
-            "J_selector": "body",
-            "has": false,
-            "class": "menu-toggler-visible"
-          },
-          "J_parent": ".current-parent",
-          "class": {
-            "add": "",
-            "remove": ""
-          },
-          "show": true,
-          "append": true
-        }
-      ]
-    }
-  ],
   "env": {
     "class": {
       "body": "bs4-",
@@ -55,19 +18,59 @@
       "xl": ""
     }
   },
-  "toowide": {
-      "use": true,
-      "J_measure": ".navbar-nav",
-      "J_against": ".navbar",
-      "J_addto": ".navbar",
-      "maxwidths": {
-        "xs": 0,
-        "sm": 0,
-        "md": 0,
-        "lg": 0,
-        "xl": 0
+  "dom": {
+    "use": true,
+    "items": [
+      {
+        "id": "example",
+        "J_selector": ".thing-to-move",
+        "J_parent": ".current-parent",
+        "triggers": [
+          {
+            "checker": {
+              "J_selector": "body",
+              "has": true,
+              "class": "menu-toggler-visible"
+            },
+            "J_parent": ".new-parent",
+            "class": {
+              "add": "",
+              "remove": ""
+            },
+            "show": true,
+            "append": true
+          },
+          {
+            "checker": {
+              "J_selector": "body",
+              "has": false,
+              "class": "menu-toggler-visible"
+            },
+            "J_parent": ".current-parent",
+            "class": {
+              "add": "",
+              "remove": ""
+            },
+            "show": true,
+            "append": true
+          }
+        ]
       }
-    },
+    ]
+  },
+  "toowide": {
+    "use": true,
+    "J_measure": ".navbar-nav",
+    "J_against": ".navbar",
+    "J_addto": ".navbar",
+    "maxwidths": {
+      "xs": 0,
+      "sm": 0,
+      "md": 0,
+      "lg": 0,
+      "xl": 0
+    }
+  },
   "menuscreen": {
     "use": true,
     "screen": "your-overlay-div",

@@ -1,6 +1,8 @@
 /**
  * @typedef  {object}              FLEX
- * @property {Array.BS4domsize}    FLEX.dom
+ * @property {object}              FLEX.dom
+ * @property {bool}                FLEX.dom.use
+ * @property {Array.BS4domsize}    FLEX.dom.items
  * @property {object}              FLEX.env
  * @property {object}              FLEX.env.class
  * @property {string}              FLEX.env.class.body
@@ -112,6 +114,8 @@ jQuery( document ).ready( function ( $ ) {
 
     /**
      * Modifies the configured menu
+     *
+     * @since 1.3 Checks 'use' argument, var is now 'modifymenu'
      */
     function modify_menu() {
 
@@ -359,14 +363,17 @@ jQuery( document ).ready( function ( $ ) {
      * Resizes items in dom
      *
      * @since 1.1 Broken out from resize()
+     * @since 1.3 Checks 'use' argument
      */
     function _resize_dom() {
 
         var d = new $.Deferred();
 
-        $.each( FLEX.dom, function ( i, v ) {
-            _dom( v );
-        } );
+        if ( FLEX.dom.use ) {
+            $.each( FLEX.dom.items, function ( i, v ) {
+                _dom( v );
+            } );
+        }
 
         d.resolve();
         return d.promise();
