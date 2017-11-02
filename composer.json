@@ -1,0 +1,16 @@
+{
+  "name": "rogerlos/flexwalker",
+  "description": "Flexible WordPress plugin (or standalone library) uses configurable Bootstrap 4 (BS4) templates for WP nav menus via custom walker.",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.4"
+  },
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Roger Los",
+      "email": "cmb2@web.rogerlos.com"
+    }
+  ],
+  "minimum-stability": "stable"
+}

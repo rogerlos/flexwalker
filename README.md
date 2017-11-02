@@ -14,9 +14,6 @@ helper classes, moving DOM elements if a toggle becomes visible, and the like.
 All configuration of the plugin is via JSON. Avoid overwriting the core JSON by creating a `flexwalker` directory in
 the root of your theme directory and copying the plugin's JSON files there.
 
-(At some point I may add an admin interface on top of the JSON using another of
-my WP plugins, [CMB2 Metatabs Options](https://github.com/rogerlos/cmb2-metatabs-options).)
-
 [See the wiki](https://github.com/rogerlos/flexwalker/wiki) for in-depth information.
 
 ### Using
@@ -45,6 +42,14 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 
 ## Revisions
+
+### 1.3.2
+
+* Added composer.json and packagist hook
+
+### 1.3.1
+
+* Modified 'dom' to be consistent with other optional features
 
 ### 1.3
 
