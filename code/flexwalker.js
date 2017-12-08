@@ -101,9 +101,6 @@ jQuery( document ).ready( function ( $ ) {
      *
      * @since 1.1 Removed extra listener and call
      */
-
-    console.log( 'FLEXWALKER' );
-
     window.addEventListener( 'resize', hider );
     window.addEventListener( 'resize', sizer );
 
@@ -507,8 +504,6 @@ jQuery( document ).ready( function ( $ ) {
 
                     // we have to check if $add is a member of FLEX.dom
                     $.each( FLEX.dom, function ( i, v ) {
-
-                        console.log([v.J_selector,$add]);
 
                         if ( $( v.J_selector ).is( $add ) ) {
                             var addid = $add.attr( 'id' ) | 0;
