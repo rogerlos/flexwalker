@@ -76,6 +76,12 @@ class Flexwalker_Walker extends \Walker_Nav_Menu {
 			$I['attr']['class'][] = 'active';
 		}
 		
+		if ( ! empty( $item->classes ) ) {
+			foreach( $item->classes as $class ) {
+				$I['attr']['class'][] = $class;
+			}
+		}
+		
 		// reconcile classes into our array
 		$I['attr']['class'][] = 'nav-item-'   . $item->ID;
 		$I['attr']['class'][] = 'flexwalker-top-'    . $this->top;

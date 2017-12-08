@@ -237,43 +237,77 @@ jQuery( document ).ready( function ( $ ) {
      */
     function _dom( item ) {
 
-        var $item = $( item.J_parent + '>' + item.J_selector ),
-            $parent,
-            $current,
-            current = {};
+        var $items = $( item.J_parent + '>' + item.J_selector );
 
         $.each( item.triggers, function ( i, v ) {
-            if ( ! $item.length ) {
-                $item = $( v.J_parent + '>' + item.J_selector )
+            if ( ! $items.length ) {
+                $items = $( v.J_parent + '>' + item.J_selector )
             }
-            if ( v.checker.has === $( v.checker.J_selector ).hasClass( v.checker.class ) ) {
-                current = typeof( current.J_parent ) === 'undefined' ? v : current;
+        });
+
+        $items.each( function( itemindex ) {
+
+            var $item = $(this),
+                attrid = $item.attr( 'id' ),
+                $parent,
+                $current,
+                current = {};
+
+            itemindex = attrid ? attrid : itemindex;
+
+            $.each( item.triggers, function ( i, v ) {
+                if ( v.checker.has === $( v.checker.J_selector ).hasClass( v.checker.class ) ) {
+                    current = typeof( current.J_parent ) === 'undefined' ? v : current;
+                }
+            } );
+
+            if ( typeof( current.J_parent ) === 'undefined' || ! $item.length ) return false;
+
+            // set a data attribute in the dom
+            $item.attr( 'data-instance', itemindex );
+
+            $parent = $item.parent();
+            $current = $( current.J_parent );
+
+            // if this is the first time through, save initial classes, per instance
+            if ( ! _initial_class( item.id, itemindex ) ) {
+                _initial_class( item.id, itemindex, $item.attr( 'class' ) );
+            }
+
+            // remove all classes, add original classes back in
+            $item.attr( 'class', '' ).addClass( _initial_class( item.id, itemindex ) );
+
+            // add/remove classes as configured
+            $item.addClass( current.class.add ).removeClass( current.class.remove );
+
+            // set the display
+            if ( current.show && $item.not( ':visible' ) ) $item.show();
+            if ( ! current.show && $item.is( ':visible' ) ) $item.hide();
+
+            // if the parent is not correct, move item in dom
+            if ( ! $parent.is( $current ) ) {
+                $item.detach();
+                current.append ? $item.appendTo( $current ) : $item.prependTo( $current );
             }
         } );
+    }
 
-        if ( typeof( current.J_parent ) === 'undefined' || ! $item.length ) return false;
+    /**
+     * Saves initial class values.
+     *
+     * @param {number|string} id       Type identifier
+     * @param {number|string} ins      Instance of type
+     * @param {string}        [value]  New value to set it to
+     * @returns {*}
+     * @private
+     */
+    function _initial_class( id, ins, value ) {
 
-        $parent = $item.parent();
-        $current = $( current.J_parent );
+        initcls[ id ]        = typeof( initcls[ id ] ) === 'undefined'        ? {}    : initcls[ id ];
+        initcls[ id ][ ins ] = typeof( initcls[ id ][ ins ] ) === 'undefined' ? false : initcls[ id ][ ins ];
+        initcls[ id ][ ins ] = typeof( value ) !== 'undefined'                ? value : initcls[ id ][ ins ];
 
-        // if the initial set of classes was not recorded, place it into initial
-        if ( typeof( initcls[ item.id ] ) === 'undefined' ) initcls[ item.id ] = $item.attr( 'class' );
-
-        // remove all classes, add original classes back in
-        $item.attr( 'class', '' ).addClass( initcls[ item.id ] );
-
-        // add/remove classes as configured
-        $item.addClass( current.class.add ).removeClass( current.class.remove );
-
-        // set the display
-        if ( current.show && $item.not( ':visible' ) ) $item.show();
-        if ( ! current.show && $item.is( ':visible' ) ) $item.hide();
-
-        // if the parent is not correct, move item in dom
-        if ( ! $parent.is( $current ) ) {
-            $item.detach();
-            current.append ? $item.appendTo( $current ) : $item.prependTo( $current );
-        }
+        return initcls[ id ][ ins ];
     }
 
     /**
@@ -427,9 +461,9 @@ jQuery( document ).ready( function ( $ ) {
 
         if ( FLEX.toowide.use ) {
 
-            $add = $( FLEX.toowide.J_addto );
-            $measure = $( FLEX.toowide.J_measure );
-            $against = $( FLEX.toowide.J_against );
+            $add = $( FLEX.toowide.J_addto ).eq( 0 );
+            $measure = $( FLEX.toowide.J_measure ).eq( 0 );
+            $against = $( FLEX.toowide.J_against ).eq( 0 );
 
             if ( FLEX.toowide.maxwidths[ BS ] !== 0 ) {
 
@@ -458,6 +492,8 @@ jQuery( document ).ready( function ( $ ) {
                         if ( i === BS && i !== 'xl' ) {
                             $add.removeClass( FLEX.toggle + ' ' + FLEX.toggle + '-' + i )
                                 .addClass( FLEX.toggle + '-' + v );
+                        } else if ( i === BS && i === 'xl' ) {
+                            $add.removeClass( FLEX.toggle + ' ' + FLEX.toggle + '-' + i )
                         }
                     }
 
@@ -471,8 +507,12 @@ jQuery( document ).ready( function ( $ ) {
 
                     // we have to check if $add is a member of FLEX.dom
                     $.each( FLEX.dom, function ( i, v ) {
+
+                        console.log([v.J_selector,$add]);
+
                         if ( $( v.J_selector ).is( $add ) ) {
-                            initcls[ v.id ] = $add.attr( 'class' );
+                            var addid = $add.attr( 'id' ) | 0;
+                            _initial_class( v.id, addid, $add.attr( 'class' ) );
                         }
                     });
                 }
