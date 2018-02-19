@@ -45,7 +45,7 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ### 1.3.3
 
-* Fixed bug with menus too large for even the largest space not going to "hamburger"
+* Fixed bug where menus too large for even the largest space did not flip to the "hamburger" menu
 * Fixed bug with the dom repositioning not iterating over multiple elements found with same selector.
 * Fixed bug which did not pass any extra classes added via WP menu to the walker
 
