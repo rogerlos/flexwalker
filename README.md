@@ -43,6 +43,10 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ## Revisions
 
+### 1.4
+
+* Fixed bug with "content" configured in JSON
+
 ### 1.3.3
 
 * Fixed bug where menus too large for even the largest space did not flip to the "hamburger" menu

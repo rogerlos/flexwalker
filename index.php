@@ -6,7 +6,7 @@
  * Plugin Name:       Flexwalker
  * Plugin URI:        https://github.com/rogerlos/flexwalker
  * Description:       Generate Bootstrap 4 Menus. Note, relies on bootstrap 4 being present.
- * Version:           1.3.3
+ * Version:           1.4
  * Author:            Roger Los
  * Author URI:        https://github.com/rogerlos/
  * License:           GPL-2.0+
@@ -24,7 +24,7 @@ $req  = [ 'php' => 5.4, 'wp' => 4.0, ];
 $core = [
 	'path'    => plugin_dir_path( __FILE__ ),
 	'url'     => plugin_dir_url( __FILE__ ),
-	'version' => '1.3.3',
+	'version' => '1.4',
 	'json'    => [ 'tags', 'templates', 'walker', 'display' ],
 ];
 
