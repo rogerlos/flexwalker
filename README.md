@@ -43,6 +43,10 @@ configuration, use a "dots" key, where each nested level is separated by a dot: 
 
 ## Revisions
 
+### 1.4.1
+
+* Checked for empty 'tag' attribute in templates.json
+
 ### 1.4
 
 * Fixed bug with "content" configured in JSON
