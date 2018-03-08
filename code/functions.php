@@ -94,7 +94,7 @@ function random_id( $string = '' ) {
 /**
  * Opens tags and adds attributes passed via tag array
  *
- * @since 1.4 Fixed non-exitent $arr bug
+ * @since 1.4 Fixed non-exitent $arr bug, check for empty 'tag'
  * @since 1.0
  *
  * @param array $tag  a single tag configuration array from tags.json
@@ -103,7 +103,7 @@ function random_id( $string = '' ) {
  */
 function open_tag( $tag = [] ) {
 	
-	if ( empty( $tag ) ) {
+	if ( empty( $tag ) || empty( $tag['tag'] ) ) {
 		return '';
 	}
 	
@@ -125,7 +125,7 @@ function open_tag( $tag = [] ) {
 /**
  * Closes open tag
  *
- * @since 1.4 Fixed non-exitent $arr bug
+ * @since 1.4 Fixed non-exitent $arr bug, check for empty 'tag'
  * @since 1.0
  *
  * @param array $tag  a single tag configuration array from tags.json
@@ -134,7 +134,7 @@ function open_tag( $tag = [] ) {
  */
 function close_tag( $tag = [] ) {
 	
-	if ( empty( $tag ) ) {
+	if ( empty( $tag ) || empty( $tag['tag'] ) ) {
 		return '';
 	}
 	
