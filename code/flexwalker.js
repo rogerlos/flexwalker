@@ -1,7 +1,7 @@
 /**
  * @typedef  {object}              FLEX
  * @property {object}              FLEX.dom
- * @property {bool}                FLEX.dom.use
+ * @property {Boolean}                FLEX.dom.use
  * @property {Array.BS4domsize}    FLEX.dom.items
  * @property {object}              FLEX.env
  * @property {object}              FLEX.env.class
@@ -13,28 +13,28 @@
  * @property {number}              FLEX.debounce
  * @property {object}              FLEX.env.breakpoints
  * @property {object}              FLEX.toowide
- * @property {bool}                FLEX.toowide.use
+ * @property {Boolean}                FLEX.toowide.use
  * @property {string}              FLEX.toowide.J_measure
  * @property {string}              FLEX.toowide.J_against
  * @property {string}              FLEX.toowide.J_addto
  * @property {object}              FLEX.toowide.maxwidths
  * @property {object}              FLEX.forceclick
- * @property {bool}                FLEX.forceclick.use
+ * @property {Boolean}                FLEX.forceclick.use
  * @property {string}              FLEX.forceclick.J_selector
  * @property {string}              FLEX.forceclick.J_find
  * @property {string}              FLEX.forceclick.attr
  * @property {object}              FLEX.menuscreen
- * @property {bool}                FLEX.menuscreen.use
+ * @property {Boolean}                FLEX.menuscreen.use
  * @property {string}              FLEX.menuscreen.screen
  * @property {string}              FLEX.menuscreen.J_toggle
  * @property {string}              FLEX.menuscreen.attr
  * @property {string}              FLEX.menuscreen.value
  * @property {object}              FLEX.togglerstateclass
- * @property {bool}                FLEX.togglerstateclass.use
+ * @property {Boolean}                FLEX.togglerstateclass.use
  * @property {string}              FLEX.togglerstateclass.J_toggle
  * @property {Array.BS4state}      FLEX.togglerstateclass.items
  * @property {object}              FLEX.resizehide
- * @property {bool}                FLEX.resizehide.use
+ * @property {Boolean}                FLEX.resizehide.use
  * @property {Array.BS4resize}     FLEX.resizehide.items
  * @property {Array.BS4mod}        FLEX.modifymenu
  *
@@ -47,17 +47,17 @@
  * @typedef  {object}              BS4domtrigger
  * @property {object}              BS4domtrigger.checker
  * @property {string}              BS4domtrigger.checker.J_selector
- * @property {bool}                BS4domtrigger.checker.has
+ * @property {Boolean}                BS4domtrigger.checker.has
  * @property {string}              BS4domtrigger.checker.class
  * @property {string}              BS4domtrigger.J_parent
  * @property {object}              BS4domtrigger.class
  * @property {string}              BS4domtrigger.class.add
  * @property {string}              BS4domtrigger.class.remove
- * @property {bool}                BS4domtrigger.show
- * @property {bool}                BS4domtrigger.append
+ * @property {Boolean}                BS4domtrigger.show
+ * @property {Boolean}                BS4domtrigger.append
  *
  * @typedef  {object}              BS4mod
- * @property {bool}                BS4mod.use
+ * @property {Boolean}                BS4mod.use
  * @property {Array.BS4moditems}   BS4mod.items
  *
  * @typedef  {object}              BS4moditems
@@ -67,7 +67,7 @@
  * @typedef  {object}              BS4moditem
  * @property {string}              BS4moditem.id
  * @property {string}              BS4moditem.J_selector
- * @property {bool}                BS4moditem.append
+ * @property {Boolean}                BS4moditem.append
  * @property {string}              BS4moditem.tag
  * @property {object}              BS4moditem.attr
  * @property {string}              BS4moditem.attr.class
@@ -354,6 +354,8 @@ jQuery( document ).ready( function ( $ ) {
                 //return;
             }
         } );
+
+        $el.remove();
 
         return bp;
     }
