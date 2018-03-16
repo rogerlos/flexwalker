@@ -62,6 +62,7 @@
     "use": true,
     "J_measure": ".navbar-nav",
     "J_against": ".navbar",
+    "J_against_subtract": ".navbar-brand",
     "J_addto": ".navbar",
     "maxwidths": {
       "xs": 0,

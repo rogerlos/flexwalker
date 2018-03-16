@@ -1,7 +1,7 @@
 /**
  * @typedef  {object}              FLEX
  * @property {object}              FLEX.dom
- * @property {Boolean}                FLEX.dom.use
+ * @property {Boolean}             FLEX.dom.use
  * @property {Array.BS4domsize}    FLEX.dom.items
  * @property {object}              FLEX.env
  * @property {object}              FLEX.env.class
@@ -13,28 +13,29 @@
  * @property {number}              FLEX.debounce
  * @property {object}              FLEX.env.breakpoints
  * @property {object}              FLEX.toowide
- * @property {Boolean}                FLEX.toowide.use
+ * @property {Boolean}             FLEX.toowide.use
  * @property {string}              FLEX.toowide.J_measure
  * @property {string}              FLEX.toowide.J_against
+ * @property {string}              FLEX.toowide.J_against_subtract
  * @property {string}              FLEX.toowide.J_addto
  * @property {object}              FLEX.toowide.maxwidths
  * @property {object}              FLEX.forceclick
- * @property {Boolean}                FLEX.forceclick.use
+ * @property {Boolean}             FLEX.forceclick.use
  * @property {string}              FLEX.forceclick.J_selector
  * @property {string}              FLEX.forceclick.J_find
  * @property {string}              FLEX.forceclick.attr
  * @property {object}              FLEX.menuscreen
- * @property {Boolean}                FLEX.menuscreen.use
+ * @property {Boolean}             FLEX.menuscreen.use
  * @property {string}              FLEX.menuscreen.screen
  * @property {string}              FLEX.menuscreen.J_toggle
  * @property {string}              FLEX.menuscreen.attr
  * @property {string}              FLEX.menuscreen.value
  * @property {object}              FLEX.togglerstateclass
- * @property {Boolean}                FLEX.togglerstateclass.use
+ * @property {Boolean}             FLEX.togglerstateclass.use
  * @property {string}              FLEX.togglerstateclass.J_toggle
  * @property {Array.BS4state}      FLEX.togglerstateclass.items
  * @property {object}              FLEX.resizehide
- * @property {Boolean}                FLEX.resizehide.use
+ * @property {Boolean}             FLEX.resizehide.use
  * @property {Array.BS4resize}     FLEX.resizehide.items
  * @property {Array.BS4mod}        FLEX.modifymenu
  *
@@ -47,17 +48,17 @@
  * @typedef  {object}              BS4domtrigger
  * @property {object}              BS4domtrigger.checker
  * @property {string}              BS4domtrigger.checker.J_selector
- * @property {Boolean}                BS4domtrigger.checker.has
+ * @property {Boolean}             BS4domtrigger.checker.has
  * @property {string}              BS4domtrigger.checker.class
  * @property {string}              BS4domtrigger.J_parent
  * @property {object}              BS4domtrigger.class
  * @property {string}              BS4domtrigger.class.add
  * @property {string}              BS4domtrigger.class.remove
- * @property {Boolean}                BS4domtrigger.show
- * @property {Boolean}                BS4domtrigger.append
+ * @property {Boolean}             BS4domtrigger.show
+ * @property {Boolean}             BS4domtrigger.append
  *
  * @typedef  {object}              BS4mod
- * @property {Boolean}                BS4mod.use
+ * @property {Boolean}             BS4mod.use
  * @property {Array.BS4moditems}   BS4mod.items
  *
  * @typedef  {object}              BS4moditems
@@ -67,7 +68,7 @@
  * @typedef  {object}              BS4moditem
  * @property {string}              BS4moditem.id
  * @property {string}              BS4moditem.J_selector
- * @property {Boolean}                BS4moditem.append
+ * @property {Boolean}             BS4moditem.append
  * @property {string}              BS4moditem.tag
  * @property {object}              BS4moditem.attr
  * @property {string}              BS4moditem.attr.class
@@ -89,12 +90,12 @@
 jQuery( document ).ready( function ( $ ) {
 
     var $document = $( document ),
-        initcls = {},
-        hider = resize_start,
-        sizer = _debounce( resized, FLEX.debounce ),
-        resizing = false,
-        fitted = {},
-        BS = 'XX';
+        initcls   = {},
+        hider     = resize_start,
+        sizer     = _debounce( resized, FLEX.debounce ),
+        resizing  = false,
+        fitted    = {},
+        BS        = 'XX';
 
     /**
      * Fired on ready.
@@ -208,7 +209,7 @@ jQuery( document ).ready( function ( $ ) {
      */
     function _add_class_on_toggle() {
 
-        var d= new $.Deferred;
+        var d = new $.Deferred;
 
         if ( FLEX.togglerstateclass.use ) {
 
@@ -240,12 +241,12 @@ jQuery( document ).ready( function ( $ ) {
             if ( ! $items.length ) {
                 $items = $( v.J_parent + '>' + item.J_selector )
             }
-        });
+        } );
 
-        $items.each( function( itemindex ) {
+        $items.each( function ( itemindex ) {
 
-            var $item = $(this),
-                attrid = $item.attr( 'id' ),
+            var $item   = $( this ),
+                attrid  = $item.attr( 'id' ),
                 $parent,
                 $current,
                 current = {};
@@ -263,7 +264,7 @@ jQuery( document ).ready( function ( $ ) {
             // set a data attribute in the dom
             $item.attr( 'data-instance', itemindex );
 
-            $parent = $item.parent();
+            $parent  = $item.parent();
             $current = $( current.J_parent );
 
             // if this is the first time through, save initial classes, per instance
@@ -300,9 +301,9 @@ jQuery( document ).ready( function ( $ ) {
      */
     function _initial_class( id, ins, value ) {
 
-        initcls[ id ]        = typeof( initcls[ id ] ) === 'undefined'        ? {}    : initcls[ id ];
+        initcls[ id ]        = typeof( initcls[ id ] ) === 'undefined' ? {} : initcls[ id ];
         initcls[ id ][ ins ] = typeof( initcls[ id ][ ins ] ) === 'undefined' ? false : initcls[ id ][ ins ];
-        initcls[ id ][ ins ] = typeof( value ) !== 'undefined'                ? value : initcls[ id ][ ins ];
+        initcls[ id ][ ins ] = typeof( value ) !== 'undefined' ? value : initcls[ id ][ ins ];
 
         return initcls[ id ][ ins ];
     }
@@ -315,7 +316,7 @@ jQuery( document ).ready( function ( $ ) {
     function _size() {
 
         var bp = _environment(),
-            d = new $.Deferred();
+            d  = new $.Deferred();
 
         if ( bp !== BS ) {
             $( 'body' ).removeClass( FLEX.env.class.body + BS ).addClass( FLEX.env.class.body + bp );
@@ -334,7 +335,7 @@ jQuery( document ).ready( function ( $ ) {
     function _environment() {
 
         var $el = $( '<div>' ),
-            bp = '';
+            bp  = '';
 
         $el.appendTo( $( 'body' ) );
 
@@ -344,7 +345,7 @@ jQuery( document ).ready( function ( $ ) {
                 $el.addClass( 'd-none' );
             }
 
-            $el.addClass(  FLEX.env.class.hide + i  + FLEX.env.class.hideup );
+            $el.addClass( FLEX.env.class.hide + i + FLEX.env.class.hideup );
 
             if ( $el.is( ':visible' ) ) {
                 bp = i;
@@ -375,7 +376,7 @@ jQuery( document ).ready( function ( $ ) {
         return function () {
 
             var context = this,
-                args = arguments,
+                args    = arguments,
                 later,
                 callNow;
 
@@ -421,9 +422,9 @@ jQuery( document ).ready( function ( $ ) {
      */
     function _resize_hide( hider ) {
 
-        var vis = hider !== false ? 'hidden' : 'visible',
+        var vis    = hider !== false ? 'hidden' : 'visible',
             $mscrn = $( '.' + FLEX.menuscreen.screen ),
-            d = new $.Deferred();
+            d      = new $.Deferred();
 
         if ( FLEX.resizehide.use ) {
 
@@ -454,15 +455,18 @@ jQuery( document ).ready( function ( $ ) {
         var $add,
             $against,
             $measure,
-            max = '',
-            d = new $.Deferred(),
+            subtract,
+            max  = '',
+            d    = new $.Deferred(),
             flag = false;
 
         if ( FLEX.toowide.use ) {
 
-            $add = $( FLEX.toowide.J_addto ).eq( 0 );
-            $measure = $( FLEX.toowide.J_measure ).eq( 0 );
-            $against = $( FLEX.toowide.J_against ).eq( 0 );
+            $add      = $( FLEX.toowide.J_addto ).eq( 0 );
+            $measure  = $( FLEX.toowide.J_measure ).eq( 0 );
+            $against  = $( FLEX.toowide.J_against ).eq( 0 );
+            subtract = FLEX.toowide.J_against_subtract === ''
+                ? 0 : $( FLEX.toowide.J_against_subtract ).eq( 0 ).outerWidth();
 
             if ( FLEX.toowide.maxwidths[ BS ] !== 0 ) {
 
@@ -472,9 +476,9 @@ jQuery( document ).ready( function ( $ ) {
                 $against.css( 'max-width', max );
             }
 
-            if ( $measure.outerWidth() > $against.outerWidth() && typeof( fitted[ BS ] ) === 'undefined' ) {
+            if ( $measure.outerWidth() > ( $against.outerWidth() - subtract ) && typeof( fitted[ BS ] ) === 'undefined' ) {
 
-                $.each( FLEX.env.breakpoints, function(i,v) {
+                $.each( FLEX.env.breakpoints, function ( i, v ) {
 
                     if ( i !== BS && ! flag && typeof( fitted[ i ] ) === 'undefined' ) {
 
@@ -500,7 +504,7 @@ jQuery( document ).ready( function ( $ ) {
                         $add.removeClass( FLEX.toggle + '-' + i );
                     }
 
-                });
+                } );
 
                 if ( flag ) {
 
@@ -511,7 +515,7 @@ jQuery( document ).ready( function ( $ ) {
                             var addid = $add.attr( 'id' ) | 0;
                             _initial_class( v.id, addid, $add.attr( 'class' ) );
                         }
-                    });
+                    } );
                 }
             }
 
